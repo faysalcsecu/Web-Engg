@@ -1,4 +1,6 @@
-export const BASE_URL = "http://localhost:8000";
+//export const BASE_URL = "http://localhost:8000";
+
+export const BASE_URL = "https://web-engg.onrender.com";
 
 
 // utils/apiPaths.js

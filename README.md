@@ -56,11 +56,16 @@ npm run dev
 cd ../frontend
 npm start
 ```
-# 👤 **Author**
+# 👤 **Authors**
 
 **Faysal Bin Alauddin**  
 📧 Email: faysalf716@gmail.com
 🔗 GitHub: [My GitHub Profile](https://github.com/faysalcsecu)  
 🔗 LinkedIn: [My LinkedIn Profile](https://www.linkedin.com/in/faysal-bin-alauddin-4815a92a7/)
+
+**Tasfiqur Rahman Siddique**  
+📧 Email: tasfique.csecu21@gmail.com
+🔗 GitHub: [My GitHub Profile](https://github.com/TRSiddique)  
+🔗 LinkedIn: [My LinkedIn Profile](https://www.linkedin.com/in/tasfiquecsecu/)
 
 

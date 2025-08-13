@@ -63,6 +63,12 @@ npm start
 🔗 GitHub: [My GitHub Profile](https://github.com/faysalcsecu)  
 🔗 LinkedIn: [My LinkedIn Profile](https://www.linkedin.com/in/faysal-bin-alauddin-4815a92a7/)
 
+**Md. Nahin Munkar**  
+📧 Email: nahin.cse.cu@gmail.com
+🔗 GitHub: [My GitHub Profile](https://github.com/mdnahinmunkar)  
+🔗 LinkedIn: [My LinkedIn Profile](https://surl.li/uwbpzr)
+
+
 **Tasfiqur Rahman Siddique**  
 📧 Email: tasfique.csecu21@gmail.com
 🔗 GitHub: [My GitHub Profile](https://github.com/TRSiddique)  

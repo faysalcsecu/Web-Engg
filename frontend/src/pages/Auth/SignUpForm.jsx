@@ -27,7 +27,7 @@ const SignUpForm = () => {
     let profileImageUrl = "";
 
     if (!fullName) {
-      setError("Please enter your name");
+      setError("Please enter your Name");
       return;
     }
 
@@ -90,7 +90,7 @@ const SignUpForm = () => {
               value={fullName}
               onChange={({ target }) => setFullName(target.value)}
               label="Full Name"
-              placeholder="abc"
+              placeholder="your name"
               type="text"
             />
 

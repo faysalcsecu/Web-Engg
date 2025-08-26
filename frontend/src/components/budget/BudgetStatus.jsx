@@ -19,7 +19,7 @@ const BudgetStatus = ({ userId }) => {
       <p>Spent: {spent} / {budget}</p>
       <progress value={spent} max={budget} className="w-full"></progress>
       {spent >= budget && (
-        <p className="text-red-500 font-bold mt-2">⚠ Budget limit reached!</p>
+        <p className="text-red-500 font-bold mt-2">Budget limit reached!</p>
       )}
     </div>
   );

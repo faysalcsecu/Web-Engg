@@ -22,7 +22,7 @@ const SavingsCard = ({ totalIncome, totalExpense }) => {
         <span className="text-gray-500 text-sm font-medium">Savings</span>
         <span
           className={`text-xl font-bold ${
-            isNegative ? "text-red-500" : "text-green-500"
+            isNegative ? "text-red-500" : "text-lime-500"
           }`}
         >
           ${addThousandsSeparator(savings)}
@@ -36,7 +36,7 @@ const SavingsCard = ({ totalIncome, totalExpense }) => {
         )}
         {!isNegative && savings > 0 && (
           <div className="mt-2 text-xs text-green-600 bg-green-100 border border-green-300 px-3 py-1 rounded-lg">
-            🎉 Great! You have positive savings.
+           Great! You have positive savings..
           </div>
         )}
       </div>

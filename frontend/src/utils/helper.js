@@ -5,6 +5,7 @@ export const validateEmail = (email) => {
   return regex.test(email);
 };
 
+
 export const getInitials = (name) => {
   if (!name) return "";
 

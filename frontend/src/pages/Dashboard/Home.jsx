@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DashboardLayout from "../../components/Layouts/DashboardLayout";
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
 import { IoMdCard } from "react-icons/io";
+import SavingsCard from "../../components/Dashboard/SavingsCard";
 
 import { useNavigate } from "react-router-dom";
 import InfoCard from "../../components/Cards/InfoCard.jsx";
@@ -66,7 +67,7 @@ const Home = () => {
   return (
     <DashboardLayout activeMenu="Dashboard">
       <div className="my-5 mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <InfoCard
             icon={<IoMdCard />}
             label="Total Balance"
@@ -87,6 +88,12 @@ const Home = () => {
             value={addThousandsSeparator(dashboardData?.totalExpenses || 0)}
             color="bg-red-500"
           />
+
+          {/* 🆕 Savings Card */}
+          <SavingsCard
+            totalIncome={dashboardData?.totalIncome || 0}
+            totalExpense={dashboardData?.totalExpenses || 0}
+          />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
@@ -102,7 +109,9 @@ const Home = () => {
           />
 
           <ExpenseTransactions
-            transactions={dashboardData?.last30DaysExpenses?.transactions || []}
+            transactions={
+              dashboardData?.last30DaysExpenses?.transactions || []
+            }
             onSeeMore={() => navigate("/expense")}
           />
 
@@ -111,7 +120,9 @@ const Home = () => {
           />
 
           <RecentIncomeWithChart
-            data={dashboardData?.last60DaysIncome?.transactions?.slice(0,4) || []}
+            data={
+              dashboardData?.last60DaysIncome?.transactions?.slice(0, 4) || []
+            }
             totalIncome={dashboardData?.totalIncome || 0}
           />
 

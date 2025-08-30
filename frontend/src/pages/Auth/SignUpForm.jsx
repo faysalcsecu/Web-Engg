@@ -27,7 +27,7 @@ const SignUpForm = () => {
     let profileImageUrl = "";
 
     if (!fullName) {
-      setError("Please enter your name");
+      setError("Please enter your Name");
       return;
     }
 
@@ -90,7 +90,7 @@ const SignUpForm = () => {
               value={fullName}
               onChange={({ target }) => setFullName(target.value)}
               label="Full Name"
-              placeholder="faysal"
+              placeholder="your name"
               type="text"
             />
 
@@ -98,7 +98,7 @@ const SignUpForm = () => {
               value={email}
               onChange={({ target }) => setEmail(target.value)}
               label="Email Address"
-              placeholder="faysal@example.com"
+              placeholder="abc@gmail.com"
               type="text"
             />
 

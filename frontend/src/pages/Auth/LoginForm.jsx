@@ -20,12 +20,12 @@ const LoginForm = () => {
     e.preventDefault();
 
     if (!validateEmail(email)) {
-      setError("Please enter a valid email address.");
+      setError("Please enter a valid email address!!");
       return;
     }
 
     if (!password) {
-      setError("Please enter the password");
+      setError("Please enter the correct password");
       return;
     }
 
@@ -66,7 +66,7 @@ const LoginForm = () => {
             value={email}
             onChange={({ target }) => setEmail(target.value)}
             label="Email Address"
-            placeholder="faysal@example.com"
+            placeholder="abc@example.com"
             type="text"
           />
 

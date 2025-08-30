@@ -24,3 +24,4 @@ const Last30DaysExpenses = ({ data }) => {
   );
 };
 export default Last30DaysExpenses;
+ 

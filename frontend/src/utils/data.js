@@ -14,12 +14,12 @@ export const SIDE_MENU_DATA = [
     icon: LuLayoutDashboard,
     path: "/dashboard",
   },
-  {
-    id: "02",
-    label: "Report",
-    icon: LuWalletMinimal,
-    path: "/report",
-  },
+  // {
+  //   id: "02",
+  //   label: "Report",
+  //   icon: LuWalletMinimal,
+  //   path: "/report",
+  // },
   {
     id: "03",
     label: "Income",

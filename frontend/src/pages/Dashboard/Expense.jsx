@@ -1,128 +1,180 @@
 import React, { useEffect, useState } from "react";
 import DashboardLayout from "../../components/Layouts/DashboardLayout";
-import InfoCard from "../../components/Cards/InfoCard";
-import { IoMdCard } from "react-icons/io";
-import { LuWalletMinimal, LuHandCoins } from "react-icons/lu";
-import { API_PATHS } from "../../utils/apiPaths";
+
+import { useNavigate } from "react-router-dom";
+import { useUserAuth } from "../../hooks/useUserAuth";
 import axiosInstance from "../../utils/axiosInstance";
+import { API_PATHS } from "../../utils/apiPaths";
+import IncomeOverview from "../../components/Expense/ExpenseOverview";
+import ExpenseList from "../../components/Expense/ExpenseList";
+import ExpenseOverview from "../../components/Expense/ExpenseOverview";
+import AddExpenseForm from "../../components/Expense/AddExpenseForm";
+import DeleteAlert from "../../components/DeleteAlert";
+import Modal from "../../components/Modal";
 import toast from "react-hot-toast";
 
-const Report = () => {
-  const [reportData, setReportData] = useState([]);
-  const [year, setYear] = useState("all");
+const Expense = () => {
+  useUserAuth();
+
+  const navigate = useNavigate();
+
+  const [expenseData, setExpenseData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Fetch Report Data (Income + Expense)
-  const fetchReportData = async () => {
+  const [openAddExpenseModal, setOpenAddExpenseModal] = useState(false);
+  const [openDeleteAlert, setOpenDeleteAlert] = useState({
+    show: false,
+    data: null,
+  });
+
+  // Get All Expense Details
+  const fetchExpenseDetails = async () => {
     if (loading) return;
+
     setLoading(true);
 
     try {
-      const response = await axiosInstance.get(API_PATHS.REPORT.GET_DATA); 
+      const response = await axiosInstance.get(
+        `${API_PATHS.EXPENSE.GET_ALL_EXPENSE}`
+      );
+
       if (response.data) {
-        setReportData(response.data);
+        setExpenseData(response.data);
       }
     } catch (error) {
-      console.error("Error fetching report data:", error);
-      toast.error("Failed to load report data.");
+      console.log("Something went wrong. Please try again.", error);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchReportData();
-  }, []);
+  // Handle Add Expense
+  const handleAddExpense = async (expense) => {
+    const { category, amount, date, icon } = expense;
 
-  // Filter Data by Year
-  const filteredData =
-    year === "all"
-      ? reportData
-      : reportData.filter((item) => new Date(item.date).getFullYear().toString() === year);
+    // Validation Checks
+    if (!category.trim()) {
+      toast.error("Category is required.");
+      return;
+    }
 
-  // Calculate totals
-  const totalIncome = filteredData
-    .filter((item) => item.type === "income")
-    .reduce((sum, i) => sum + Number(i.amount), 0);
+    if (!amount || isNaN(amount) || Number(amount) <= 0) {
+      toast.error("Amount should be a valid number greater than 0.");
+      return;
+    }
 
-  const totalExpense = filteredData
-    .filter((item) => item.type === "expense")
-    .reduce((sum, i) => sum + Number(i.amount), 0);
+    if (!date) {
+      toast.error("Date is required.");
+      return;
+    }
 
-  const balance = totalIncome - totalExpense;
-
-  // Download Excel
-  const handleDownloadReport = async () => {
     try {
-      const response = await axiosInstance.get(API_PATHS.REPORT.DOWNLOAD, {
-        responseType: "blob",
+      await axiosInstance.post(API_PATHS.EXPENSE.ADD_EXPENSE, {
+        category,
+        amount,
+        date,
+        icon,
       });
 
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", "report.xlsx");
-      document.body.appendChild(link);
-      link.click();
-      link.parentNode.removeChild(link);
-      window.URL.revokeObjectURL(url);
+      setOpenAddExpenseModal(false);
+      toast.success("Expense added successfully");
+      fetchExpenseDetails();
     } catch (error) {
-      console.error("Error downloading report:", error);
-      toast.error("Failed to download report.");
+      console.error(
+        "Error adding expense:",
+        error.response?.data?.message || error.message
+      );
     }
   };
 
+  // Delete Expense
+  const deleteExpense = async (id) => {
+    try {
+      await axiosInstance.delete(API_PATHS.EXPENSE.DELETE_EXPENSE(id));
+
+      setOpenDeleteAlert({ show: false, data: null });
+      toast.success("Expense details deleted successfully");
+      fetchExpenseDetails();
+    } catch (error) {
+      console.error(
+        "Error deleting expense:",
+        error.response?.data?.message || error.message
+      );
+    }
+  };
+
+  // handle download expense details
+  const handleDownloadExpenseDetails = async () => {
+    try {
+      const response = await axiosInstance.get(
+        API_PATHS.EXPENSE.DOWNLOAD_EXPENSE,
+        {
+          responseType: "blob", 
+        }
+      );
+
+      // Create a URL for the blob
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "expense_details.xlsx"); 
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(url); 
+    } catch (error) {
+      console.error("Error downloading expense details:", error);
+      toast.error("Failed to download expense details. Please try again.");
+    }
+  };
+
+  useEffect(() => {
+    fetchExpenseDetails();
+
+    return () => {};
+  }, []);
+
   return (
-    <DashboardLayout activeMenu="Report">
-      <div className="p-6">
-        <h1 className="text-2xl font-bold mb-6">Report</h1>
+    <DashboardLayout activeMenu="Expense">
+      <div className="my-5 mx-auto">
+        <div className="grid grid-cols-1 gap-6">
+          <div className="">
+            <ExpenseOverview
+              transactions={expenseData}
+              onExpenseIncome={() => setOpenAddExpenseModal(true)}
+            />
+          </div>
 
-        {/* Year Selector */}
-        <div className="mb-6 flex items-center gap-4">
-          <label className="font-semibold">Select Year:</label>
-          <select
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-            className="border p-2 rounded"
+          <ExpenseList
+            transactions={expenseData}
+            onDelete={(id) => {
+              setOpenDeleteAlert({ show: true, data: id });
+            }}
+            //onDownload={handleDownloadExpenseDetails}
+          />
+
+          <Modal
+            isOpen={openAddExpenseModal}
+            onClose={() => setOpenAddExpenseModal(false)}
+            title="Add Expense"
           >
-            <option value="all">All Time</option>
-            <option value="2025">2025</option>
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
-          </select>
+            <AddExpenseForm onAddExpense={handleAddExpense} />
+          </Modal>
 
-          <button
-            onClick={handleDownloadReport}
-            className="bg-primary text-white px-4 py-2 rounded"
+          <Modal
+            isOpen={openDeleteAlert.show}
+            onClose={() => setOpenDeleteAlert({ show: false, data: null })}
+            title="Delete Expense"
           >
-            Download Excel
-          </button>
-        </div>
-
-        {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <InfoCard
-            icon={<LuWalletMinimal />}
-            label="Total Income"
-            value={`$${totalIncome}`}
-            color="bg-orange-500"
-          />
-          <InfoCard
-            icon={<LuHandCoins />}
-            label="Total Expense"
-            value={`$${totalExpense}`}
-            color="bg-red-500"
-          />
-          <InfoCard
-            icon={<IoMdCard />}
-            label="Available Balance"
-            value={`$${balance}`}
-            color="bg-blue-500"
-          />
+            <DeleteAlert
+              content="Are you sure you want to delete this expense detail?"
+              onDelete={() => deleteExpense(openDeleteAlert.data)}
+            />
+          </Modal>
         </div>
       </div>
     </DashboardLayout>
   );
 };
 
-export default Report;
+export default Expense;

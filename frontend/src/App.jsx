@@ -13,7 +13,7 @@ import { Toaster } from "react-hot-toast";
 import Home from "./pages/Dashboard/Home";
 import Income from "./pages/Dashboard/Income";
 import Expense from "./pages/Dashboard/Expense";
-import Report from "./pages/Dashboard/Report";
+//import Report from "./pages/Dashboard/Report";
 
 
 const App = () => {
@@ -28,7 +28,7 @@ const App = () => {
             <Route path="/dashboard" exact element={<Home />} />
             <Route path="/income" exact element={<Income />} />
             <Route path="/expense" exact element={<Expense />} />
-            <Route path="/report" element={<Report />} />
+            {/* <Route path="/report" element={<Report />} /> */}
 
           </Routes>
         </Router>

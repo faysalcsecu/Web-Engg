@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import AuthLayout from "../../components/Layouts/AuthLayout";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../components/Inputs/Input";
-import { validateEmail } from "../../utils/helper";
-import axiosInstance from "../../utils/axiosInstance";
-import { API_PATHS } from "../../utils/apiPaths";
+import AuthLayout from "../../components/Layouts/AuthLayout";
 import { UserContext } from "../../context/UserContext";
+import { API_PATHS } from "../../utils/apiPaths";
+import axiosInstance from "../../utils/axiosInstance";
+import { validateEmail } from "../../utils/helper";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -80,7 +80,7 @@ const LoginForm = () => {
 
           {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
 
-          <button type="submit" className="btn-primary">
+          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
             LOGIN
           </button>
 

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import AuthLayout from "../../components/Layouts/AuthLayout";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../components/Inputs/Input";

@@ -1,4 +1,4 @@
-import React from "react";
+
 import { FaPiggyBank } from "react-icons/fa";
 import { addThousandsSeparator } from "../../utils/helper";
 

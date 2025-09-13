@@ -1,4 +1,4 @@
-import React from "react";
+
 import { FaPiggyBank } from "react-icons/fa";
 import { addThousandsSeparator } from "../../utils/helper";
 
@@ -31,12 +31,12 @@ const SavingsCard = ({ totalIncome, totalExpense }) => {
         {/* Messages */}
         {isNegative && (
           <div className="mt-2 text-xs text-red-600 bg-red-100 border border-red-300 px-3 py-1 rounded-lg">
-            ⚠️ Your account balance is now in negative.
+           ⚠️ Oops! Your savings balance has dropped below zero.
           </div>
         )}
         {!isNegative && savings > 0 && (
           <div className="mt-2 text-xs text-green-600 bg-green-100 border border-green-300 px-3 py-1 rounded-lg">
-           Great! You have positive savings..
+           🎉 Awesome! Your savings are growing.
           </div>
         )}
       </div>

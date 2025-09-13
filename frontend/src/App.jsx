@@ -15,6 +15,7 @@ import Income from "./pages/Dashboard/Income";
 import Expense from "./pages/Dashboard/Expense";
 
 
+
 const App = () => {
   return (
     <div>
@@ -27,6 +28,8 @@ const App = () => {
             <Route path="/dashboard" exact element={<Home />} />
             <Route path="/income" exact element={<Income />} />
             <Route path="/expense" exact element={<Expense />} />
+          
+
           </Routes>
         </Router>
 

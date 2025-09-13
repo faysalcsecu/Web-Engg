@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import AuthLayout from "../../components/Layouts/AuthLayout";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../components/Inputs/Input";
-import { validateEmail } from "../../utils/helper";
-import axiosInstance from "../../utils/axiosInstance";
-import { API_PATHS } from "../../utils/apiPaths";
+import AuthLayout from "../../components/Layouts/AuthLayout";
 import { UserContext } from "../../context/UserContext";
+import { API_PATHS } from "../../utils/apiPaths";
+import axiosInstance from "../../utils/axiosInstance";
+import { validateEmail } from "../../utils/helper";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -55,17 +55,20 @@ const LoginForm = () => {
 
   return (
     <AuthLayout>
-      <div className="lg:w-[70%] h-3/4 md:h-full flex flex-col justify-center">
-        <h3 className="text-xl font-semibold text-black">Welcome Back</h3>
-        <p className="text-xs text-slate-700 mt-[5px] mb-6">
-          Please enter your details to log in
-        </p>
+      <div className="lg:w-[70%] h-3/4 md:h-full flex flex-col justify-center ">
+        <div className="bg-gray-200 border border-gray-200 rounded-xl shadow-lg px-6 pt-3 text-center mb-3">
+          <h3 className="text-xl font-semibold text-black">Welcome Back</h3>
+          <p className="text-xs text-slate-700 mt-[5px] mb-6">
+            Please enter your details to{" "}
+            <span className="font-bold text-primary">log in</span>
+          </p>
+        </div>
 
         <form onSubmit={handleLogin}>
           <Input
             value={email}
             onChange={({ target }) => setEmail(target.value)}
-            label="Email Address"
+            label="Email Address "
             placeholder="abc@example.com"
             type="text"
           />
@@ -80,7 +83,10 @@ const LoginForm = () => {
 
           {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
 
-          <button type="submit" className="btn-primary">
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+          >
             LOGIN
           </button>
 

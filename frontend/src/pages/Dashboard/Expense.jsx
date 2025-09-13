@@ -150,7 +150,7 @@ const Expense = () => {
             onDelete={(id) => {
               setOpenDeleteAlert({ show: true, data: id });
             }}
-            onDownload={handleDownloadExpenseDetails}
+            //onDownload={handleDownloadExpenseDetails}
           />
 
           <Modal
